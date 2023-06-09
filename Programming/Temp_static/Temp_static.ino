@@ -2,7 +2,7 @@
   IoT BASED TEMPERATURE MONITORING SYSTEM
   CREATED BY: SYAZWAN AZRI & AFRINA SYUHADA
   FOR UTM DIGITAL KUALA LUMPUR
-  FOR FULL CONFIGURATION PLEASE REFER TO THE GITHUB REPOSITORY
+  FOR FULL RESOURCE & DOCUMENTATION PLEASE REFER TO THE GITHUB REPOSITORY
   https://github.com/syazwan-21/UTM_IoT
 
   Temperature monitoring system using Blynk IoT through static IP configuration
@@ -26,24 +26,23 @@ BlynkTimer timer;
 #define BLYNK_TEMPLATE_NAME "ESP8266"                  
 #define BLYNK_AUTH_TOKEN "uN4nOM6N2Oc8BRfzDQpsKpOHY1YKMHwT"   
 
-//--------------------WIFI CONFIG--------------------------//
+//--------------------NETWORK CONFIG--------------------------//
 char auth[] = BLYNK_AUTH_TOKEN;
 char ssid[] = "UTMWiFi";  //Enter your WIFI ssid
-char pass[] = "";         //Enter your WIFI password (leave it blank for open network)
+char password[] = "";         //Enter your WIFI password (leave it blank for open network)
 
-IPAddress device_ip  (10, 10, 234, 169);  // Enter network credential for stsatic IP configuration
+IPAddress device_ip  (10, 10, 234, 169);  // Enter network credential for static IP configuration
 IPAddress dns        (161, 139,168, 168); //
 IPAddress gateway    (10, 10, 232, 250);  //
 IPAddress subnet     (255,255,248,0);     //
 
-//---------------------I/O--------------------------//
+//---------------------I/O PINS--------------------------//
 int green = 14; //components connected to GPIO pin, refer board pinout
 int red = 12;
 int sensor = 2;
 
 //---------------------Variables-------------------------//
 int lastOnline = 0;
-int x = 0;
 
 int maxTemp = 25; //temperature for warning
 int negate = 50; //invalid temperature to negate
@@ -97,7 +96,7 @@ void loop() {
   lcd.print ("C ");
 
   if ( temperature >= maxTemp){  //send warning notification when temperature reaches the maxTemp value
-    Blynk.logEvent ("overheat");
+    Blynk.logEvent ("overheat"); //send notification based on event code in Blynk Dashboard > Events
     Serial.print ("Overheat");
   }
 
@@ -123,10 +122,10 @@ void loop() {
   Blynk.run();
 }
 
-void connection(){ //routine responsible for connecting NodeMCU to the internet and Blynk server
+void connection(){ //routine for connecting NodeMCU to the internet and Blynk server
   
   WiFi.config(device_ip, gateway, subnet, dns);
-  WiFi.begin(ssid, pass);
+  WiFi.begin(ssid, password);
 
   Serial.print("Connecting to ");
   Serial.println (ssid);
