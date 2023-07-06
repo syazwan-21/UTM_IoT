@@ -22,9 +22,9 @@ DHT dht;
 BlynkTimer timer;
 
 //-----------------------------BLYNK CONFIG-------------------------------//
-#define BLYNK_TEMPLATE_ID "TMPL6-typWkmv" //refer device info on Blynk webpage
-#define BLYNK_TEMPLATE_NAME "ESP8266"                  
-#define BLYNK_AUTH_TOKEN "uN4nOM6N2Oc8BRfzDQpsKpOHY1YKMHwT"   
+#define BLYNK_TEMPLATE_ID "TMPL6-typWkmv"
+#define BLYNK_TEMPLATE_NAME "Server Room"
+#define BLYNK_AUTH_TOKEN "uN4nOM6N2Oc8BRfzDQpsKpOHY1YKMHwT"
 
 //--------------------NETWORK CONFIG--------------------------//
 char auth[] = BLYNK_AUTH_TOKEN;
@@ -37,9 +37,9 @@ IPAddress gateway    (10, 10, 232, 250);  //
 IPAddress subnet     (255,255,248,0);     //
 
 //---------------------I/O PINS--------------------------//
-int green = 14; //components connected to GPIO pin, refer board pinout
-int red = 12;
-int sensor = 2;
+int green = 13; //components connected to GPIO pin, refer board pinout
+int red = 15;
+int sensor = 14;
 
 //---------------------Variables-------------------------//
 int lastOnline = 0;
@@ -96,7 +96,7 @@ void loop() {
   lcd.print ("C ");
 
   if ( temperature >= maxTemp){  //send warning notification when temperature reaches the maxTemp value
-    Blynk.logEvent ("overheat"); //send notification based on event code in Blynk Dashboard > Events
+    //Blynk.logEvent ("overheat"); //send notification based on event code in Blynk Dashboard > Events
     Serial.print ("Overheat");
   }
 
